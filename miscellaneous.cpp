@@ -100,9 +100,163 @@ void optimal_rotate_array(vector<int> &arr , int d){
     reverse_array(arr,0,size-1);
 }
 
+// moving zeroes to the end of an array
+
+void moving_zeroes(vector<int> &arr){
+    int size = arr.size();
+    int j = 0;
+    for(int i = 0; i<size ; i++){
+        if(arr[i] != 0){
+            swap(arr[j] , arr[i]);
+            j++;
+        }
+    }
+}
+
+// Union of two sorted array 
+
+vector<int> union_sorted_array(vector<int>arr1 , vector<int> arr2){
+    vector<int> final;
+    set<int> st;
+    int size1 = arr1.size();
+    int size2 = arr2.size();
+    for(int i=0;i<size1;i++){
+        st.insert(arr1[i]);
+    }
+
+    for(int i=0;i<size2;i++){
+        st.insert(arr2[i]);
+    }
+
+    int total_Size = size1 + size2;
+    for(auto it : st)final.push_back(it);
+    
+    return final;
+}
+
+// Optimal way for union of two array
+
+vector<int> optimal_union_sorted_array(vector<int>arr1 , vector<int> arr2){
+    vector<int> final;
+    int size1 = arr1.size();
+    int size2 = arr2.size();
+    int i,j = 0;
+    int recent_pushed = 0;
+    
+    while(i<size1 && j<size2){
+        if(arr1[i]<=arr2[j]){
+            if(arr1[i] != recent_pushed){
+                final.push_back(arr1[i]);
+                recent_pushed = arr1[i];
+                i++;
+            }else{
+                i++;
+            }
+        }else{
+            if(arr2[j]!=recent_pushed){
+                final.push_back(arr2[j]);
+                recent_pushed = arr1[j];
+                j++;
+            }else{
+                j++;
+            }
+        }
+    }
+
+    while(i<size1){
+        if(arr1[i] != recent_pushed){
+            final.push_back(arr1[i]);
+            recent_pushed = arr1[i];
+            i++;
+        }else{
+            i++;
+        }
+    }
+
+    while(j<size2){
+        if(arr2[j]!=recent_pushed){
+            final.push_back(arr2[j]);
+            recent_pushed = arr1[j];
+            j++;
+        }else{
+            j++;
+        }
+    }
+
+    return final;
+}
+
+// Intersection of two sorted arrays (unique elements)
+
+vector<int> intersection_of_arrays_unique(vector<int>arr1 , vector<int>arr2){
+    int n1 = arr1.size();
+    int n2 = arr2.size();
+    set<int> st;
+    vector<int> final;
+
+    for(int i=0;i<n1;i++){
+        for(int j=0;j<n2;j++){
+            if(arr1[i]==arr2[j]) st.insert(arr1[i]);
+        }
+    }
+
+    for(auto it:st)final.push_back(it);
+
+    return final;
+}
+
+// Intersection of two sorted arrays (repeated values)
+
+vector<int> intersection_of_arrays_repeated(vector<int>arr1 , vector<int>arr2){
+    vector<int> final;
+    int n1 = arr1.size();
+    int n2 = arr2.size();
+    vector<int> visited(n2 , 0);
+
+    for(int i=0;i<n1;i++){
+        for(int j=0;j<n2;j++){
+            if(arr1[i]==arr2[j] && visited[j] != 1){
+                final.push_back(arr1[i]);
+                visited[j] = 1;
+                break;
+            }
+            if(arr1[i]<arr2[j])break;
+        }
+    }
+
+    return final;
+}
+
+// Optimal way of intersection for two sorted arrays (repeated values)
+vector<int> optimal_intersection_of_arrays_repeated(vector<int> arr1 , vector<int> arr2){
+    vector<int> final;
+    int n1 = arr1.size();
+    int n2 = arr2.size();
+    int i = 0;
+    int j = 0;
+
+    while(i<n1 && j<n2){
+        if(arr1[i]==arr2[j]){
+            final.push_back(arr1[i]);
+            i++;
+            j++;
+        }else{
+            if(arr1[i]<arr2[j]){
+                i++;
+            }else{
+                j++;
+            }
+        }
+    }
+
+    return final;
+
+}
+
 int main(){
-    vector<int> arr = {10,5,8,1,3,0,9};
-    optimal_rotate_array(arr , 2);
-    for( auto it : arr ) cout<<it<<" ";
+    vector<int> arr1 = {1,1,5,7,9,9,20,20};
+    vector<int> arr2 = {1,1,7,9,20,20};
+    vector<int> arr = optimal_intersection_of_arrays_repeated(arr1 , arr2);
+    for(auto it : arr)cout<<it<<" ";
     return 0;
 }
