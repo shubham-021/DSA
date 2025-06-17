@@ -240,10 +240,54 @@ void dutch(vector<int> &arr){
     }
 }
 
+// majority elements ( >= N/2 )
+// brute force way will be to double iterate for every element and take the count of appearance and report
+// better way:
+
+int majority_elements(vector<int> &arr){
+    int element = -1 ;
+    int n = arr.size();
+    map<int,int> mp;
+    for(auto e : arr){
+        mp[e]++;
+    }
+
+    for(auto it : mp){
+        if(it.second > n/2) element = it.first;
+    }
+
+    return element;
+}
+
+// optimal way is to use Moore's Voting Algorithm
+
+int majority_elements_moore(vector<int> &arr){
+    int n = arr.size();
+    int cnt = 0;
+    int el = arr[0];
+    int i = 0;
+    while(i<n){
+        if(el==arr[i]){
+            cnt++;
+        }else{
+            if(cnt != 0){
+                cnt--;
+            }else{
+                el = arr[i];
+            }
+        }
+        i++;
+    }
+
+    if(cnt!=0){
+        return el;
+    }
+    return -1;
+}
+
 
 int main(){
-    vector<int> arr = {2,0,1}; // --> {1,0,2}
-    dutch(arr);
-    for(auto it:arr)cout<<it<<" ";
+    vector<int> arr = {6,5,5};
+    cout<<majority_elements_moore(arr);
     return 0;
 }
