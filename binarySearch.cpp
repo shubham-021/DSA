@@ -178,13 +178,36 @@ long long int square_root(int num){
     return ans;
 }
 
-int main(){
-    vector<int> arr = {7,9,1,2,3};
-    while(true){
-        int a;
-        cin>>a;
-        cout<<square_root(a)<<endl;
+// book allocation : 2 students : brute force
+
+int book(vector<int> &nums){
+    int n = nums.size();
+    int min = INT_MAX;
+    int total = 0;
+    for(auto it : nums) total+=it;
+
+    int i=0;
+    while(i<n-1){
+        int max = 0;
+        int j=i;
+        while(j>=0){
+            max+=nums[j];
+            j--;
+        }
+        int left = total - max;
+        if(max>left){
+            if(max<min)min = max;
+        }else{
+            if(left<min)min=left;
+        }
+        i++;
     }
+    return min;
+}
+
+int main(){
+    vector<int> arr = {10,20,30,40};
+    cout<<book(arr)<<endl;
     return 0;
 }
 
