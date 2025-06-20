@@ -107,18 +107,55 @@ vector<pair<int,int>> three(vector<int> &nums){
     return will_return;
 }
 
-int main(){
-    vector<int> arr = {0,1,5,4,5,2,2,1,3,4,5,9};
-    vector<pair<int,int>> a = three(arr);
-    int n = a.size();
-    if(n!=0){
-        cout<<"3 sum pairs are:";
-        for(auto it : a){
-            cout<<"{"<<it.first<<","<<it.second<<"}";
+// checking valid palindromes after removing alphanumeric characters ,  ex : "A man, a plan, a canal: Panama";
+
+char lowerCase(char ch){
+        if(ch>='A'&&ch<='Z'){
+            return ch-'A'+'a';
         }
-    }else{
-        cout<<"No such pair exists";
+        return ch;
     }
+
+bool checking(string &s){
+    int start = 0;
+    int end = s.length()-1;
+    while(start<end){
+        if(s[start]!=s[end])return false;
+        else{
+            start++;
+            end--;
+        }
+    }
+    return true;
+}
+
+bool isPalindrome(string s) {
+    string lowerString = "";
+    for(int i=0; i<s.length(); i++){
+        lowerString += lowerCase(s[0]);
+    }
+    string compare = "";
+    for(int i=0; i<s.length(); i++){
+        if((lowerString[i]>='a'&& lowerString[i]<='z')){
+            compare += lowerString[i];
+        }
+    }
+    return checking(compare);
+}
+
+int main(){
+    string s = "A man, a plan, a canal: Panama";
+    string lowerString = "";
+    for(int i=0; i<s.length(); i++){
+        lowerString += lowerCase(s[i]);
+    }
+    string compare = "";
+    for(int i=0; i<s.length(); i++){
+        if((lowerString[i]>='a'&& lowerString[i]<='z')){
+            compare += lowerString[i];
+        }
+    }
+    cout<<checking(compare)<<endl;
     
     return 0;
 }
