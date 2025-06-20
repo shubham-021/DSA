@@ -77,9 +77,48 @@ int max_subarray_print(vector<int> &nums){
     return maxi;
 }
 
+// sum --> contiguous triplets having sum = 3 
+
+vector<pair<int,int>> three(vector<int> &nums){
+    int n = nums.size();
+    int i = 0 ;
+    int j = 0;
+    int sum = 0;
+    int count = 3;
+    pair<int,int> p;
+    vector<pair<int,int>> will_return;
+
+    while(i<n-2){
+        if(sum<4 && count){
+            sum += nums[j];
+            count--;
+            j++;
+        }else{
+            if(sum==3){
+                p = {i,j-1};
+                will_return.push_back(p);
+            }
+            i++;
+            j=i;
+            sum = 0;
+            count = 3;
+        }
+    }
+    return will_return;
+}
 
 int main(){
-    vector<int> arr = {-2,-3,4,-1,-2,1,5,-3};
-    cout<<max_subarray_print(arr);
+    vector<int> arr = {0,1,5,4,5,2,2,1,3,4,5,9};
+    vector<pair<int,int>> a = three(arr);
+    int n = a.size();
+    if(n!=0){
+        cout<<"3 sum pairs are:";
+        for(auto it : a){
+            cout<<"{"<<it.first<<","<<it.second<<"}";
+        }
+    }else{
+        cout<<"No such pair exists";
+    }
+    
     return 0;
 }
