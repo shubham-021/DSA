@@ -36,9 +36,36 @@ int add_1_or_2(vector<int> &in , vector<int> &ev){
     return 0;
 }
 
+int no_odd(vector<int> &s , int size){
+    int count_one = 0;
+    int count_two = 0;
+    for(auto it:s){
+        if(it==1)count_one++;
+        else count_two++;
+    }
+
+    if(count_one==count_two && count_one%2==0){
+        return count_one/2;
+    }else if((count_one==count_two && count_one%2!=0) || (count_two<count_one)){
+        return count_two;
+    }else if(count_one==size || count_two==size){
+        return 0;
+    }
+}
+
 int main(){
-    vector<int> input = {1,2,1};
-    vector<int> events = {2,1,1};
-    cout<<add_1_or_2(input , events)<<endl;
+    int t;
+    cin>>t;
+    while(t--){
+        int size;
+        cin>>size;
+        vector<int> arr;
+        int inpt;
+        for(int i=0; i<size; i++){
+            cin>>inpt;
+            arr.push_back(inpt);
+        }
+        cout<<no_odd(arr,size)<<endl;
+    }
     return 0;
 }
