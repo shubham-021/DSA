@@ -287,7 +287,6 @@ int majority_elements_moore(vector<int> &arr){
 
 
 int main(){
-    vector<int> arr = {6,5,5};
-    cout<<majority_elements_moore(arr);
+    
     return 0;
 }
