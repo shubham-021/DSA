@@ -250,13 +250,43 @@ vector<int> optimal_intersection_of_arrays_repeated(vector<int> arr1 , vector<in
     }
 
     return final;
+}
 
+// printing all permutations 
+
+void recursive_call(vector<int>&nums,vector<int>&store,vector<int>&mark,vector<vector<int>>&ans){
+    if(store.size()==nums.size()){
+        ans.push_back(store);
+        return;
+    }
+
+    for(int i=0; i<nums.size(); i++){
+        if(!mark[i]){
+            store.push_back(nums[i]);
+            mark[i] = 1;
+            recursive_call(nums,store,mark,ans);
+            mark[i]=0;
+            store.pop_back();
+        }
+    }
+}
+
+void all_permutation(vector<int>&nums){
+    vector<int> store;
+    vector<int> mark(nums.size(),0);
+    vector<vector<int>> ans;
+    recursive_call(nums , store , mark , ans);
+    for(auto it : ans){
+        cout<<"[ ";
+        for(auto in : it){
+            cout<<in<<",";
+        }
+        cout<<" ] ";
+    }
 }
 
 int main(){
-    vector<int> arr1 = {1,1,5,7,9,9,20,20};
-    vector<int> arr2 = {1,1,7,9,20,20};
-    vector<int> arr = optimal_intersection_of_arrays_repeated(arr1 , arr2);
-    for(auto it : arr)cout<<it<<" ";
+    vector<int> arr = {1,2,3};
+    all_permutation(arr);
     return 0;
 }

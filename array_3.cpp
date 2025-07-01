@@ -271,6 +271,9 @@ void next_permutation_stl(vector<int> &a){
 
 
 
+
+
+
 int main(){
     vector<int> b = {3,1,2};
     next_permutation_stl(b);
