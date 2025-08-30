@@ -269,14 +269,44 @@ void next_permutation_stl(vector<int> &a){
 // optimal way : 
 
 
+// dynamic 2d array
 
+void two_d_array(int row , int col){
+    int** arr = new int*[row];
+
+    for(int i=0; i<row; i++){
+        arr[i] = new int[col];
+    }
+
+    cout<<"Enter your "<<row*col<<" elements"<<endl;
+    for(int i=0; i<row; i++){
+        for(int j=0; j<col; j++){
+            cin>>arr[i][j];
+        }
+    }
+
+    for(int i=0; i<row; i++){
+        for(int j=0; j<col; j++){
+            cout<<arr[i][j]<<" ";
+        }
+        cout<<endl;
+    }
+
+    // releasing_memory
+    for(int i=0; i<row; i++){
+        delete []arr[i];    
+    }
+
+    delete []arr;
+}
 
 
 
 
 int main(){
-    vector<int> b = {3,1,2};
-    next_permutation_stl(b);
-    for(auto it:b)cout<<it<<" ";
+    // vector<int> b = {3,1,2};
+    // next_permutation_stl(b);
+    // for(auto it:b)cout<<it<<" ";
+    two_d_array(3,3);
     return 0;
 }
